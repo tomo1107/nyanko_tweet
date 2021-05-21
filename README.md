@@ -1,32 +1,53 @@
-# README
-## アプリ名
-## 概要
-## 本番環境
-## 製作背景
-## DEMO
-## 工夫したポイント
-## 使用技術(開発環境)
-## 課題や今後実装したい機能
-## DB設計
-<!-- 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# アプリ名
+にゃんこTweet
 
-Things you may want to cover:
+# 概要
+猫の画像を投稿・閲覧できるWebアプリケーション
+投稿者が猫を見かけた位置情報とコメントを投稿出来ます。
 
-* Ruby version
+# 製作背景
+動物に癒されたいというニーズが高まっており、
+作者も猫の画像をインターネットで探すことがありました。
+他のサービスでは猫だけの画像を見たいときでも他の情報が混在してしまいます。
+そこで、猫の画像だけが集まったサービスが欲しいと感じた為です。
 
-* System dependencies
+# DEMO
+※画像はイメージです
 
-* Configuration
+[![Image from Gyazo](https://i.gyazo.com/e115b10e5800dcb0078d222a8a3568fe.png)](https://gyazo.com/e115b10e5800dcb0078d222a8a3568fe)
 
-* Database creation
+# 実装予定の内容
+- ユーザー管理機能
+- 画像投稿機能
+- ツイート投稿機能
+- 地図情報投稿機能
+- コメント投稿機能
 
-* Database initialization
+# DB設計
+## usersテーブル
+| Column              | Type     | Options                        |
+| ------              | -------- | ------------------------------ |
+| nickname            | string   | null: false                    |
+| email               | string   | null: false, unique: true      |
+| encrypted_password  | string   | null: false                    |
+### Association
+- has_many :tweets
+- has_many :comments
 
-* How to run the test suite
+## tweetsテーブル
+| Column              | Type       | Options                        |
+| ------              | --------   | ------------------------------ |
+| text                | string     | null: false                    |
+| user                | references | null: false, foreign_key: true |
+### Association
+- belongs_to : user
+- has_many :comments
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions 
-*  ... -->
+## commentsテーブル
+| Column              | Type       | Options                        |
+| ------              | --------   | ------------------------------ |
+| text                | text       | null: false                    |
+| user                | references | null: false, foreign_key: true |
+### Association
+- belongs_to : user
+- belongs_to : tweet
