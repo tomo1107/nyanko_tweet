@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module TweetsHelper
   def tweet_lists(tweets)
     html = ''
-     tweets.each do |tweet| 
+    tweets.each do |tweet|
       html += render(partial: 'tweet', locals: { tweet: tweet })
-     end 
-     return raw(html)
+    end
+    raw(html)
   end
 end
